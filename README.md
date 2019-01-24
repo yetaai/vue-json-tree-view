@@ -2,6 +2,7 @@
 
 ![a demonstration](https://raw.githubusercontent.com/arvidkahl/vue-json-tree-view/master/header.png)
 
+## This is an object forked from Arivid Kahl. The only purpose is to remove lodash and Phantom dependency. Use it at your own risk!
 
 ## Demo and Blogpost
 
