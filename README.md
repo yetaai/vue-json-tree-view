@@ -1,4 +1,4 @@
-# Vue JSON Tree View
+# Vueytree from Vue JSON Tree View
 
 ![a demonstration](https://raw.githubusercontent.com/arvidkahl/vue-json-tree-view/master/header.png)
 

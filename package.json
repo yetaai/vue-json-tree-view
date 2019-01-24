@@ -1,5 +1,5 @@
 {
-  "name": "vueytree",
+  "name": "vueyytree",
   "version": "1.0.1",
   "repository": "yetaai/vue-json-tree-view",
   "homepage": "https://github.com/yetaai/vue-json-tree-view",
@@ -8,7 +8,7 @@
     "email": "dj@bigdecimap.com"
   },
   "description": "a JSON Tree View Component in Vue.js. Origianlly developed by Arvid Kahl. Modified by yetaai removing lodash dependency",
-  "main": "./dist/vue-json-tree-view.min.js",
+  "main": "./dist/vueyytree.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --watch --progress --config webpack.dev.config.js --port 5000",
     "build": "webpack --progress --config webpack.prod.config.js",
