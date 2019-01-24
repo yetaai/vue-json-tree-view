@@ -1,4 +1,4 @@
-# Vueytree from Vue JSON Tree View
+# Vueyytree from Vue JSON Tree View
 
 ![a demonstration](https://raw.githubusercontent.com/arvidkahl/vue-json-tree-view/master/header.png)
 
@@ -12,7 +12,7 @@ You can check out the [demo](https://jsfiddle.net/arvidkahl/kwo6vk9d/11/) on JSF
 
 Install the plugin with npm:
 ```shell
-npm install --save vue-json-tree-view
+npm install --save vueyytree
 ```
 
 Then, in your Application JavaScript, add:
