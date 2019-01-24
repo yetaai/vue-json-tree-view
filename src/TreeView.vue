@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+//  import _ from 'lodash'
   import TreeViewItem from './TreeViewItem.vue'
 
   export default {
@@ -26,21 +26,19 @@
         }
       },
 
-    	// Since we use lodash, the _.map method will work on
-      // both Objects and Arrays, returning either the Key as
-      // a string or the Index as an integer
-    	generateChildrenFromCollection: function(collection){
-  			return _.map(collection, (value, keyOrIndex)=>{
-            if (this.isObject(value)) {
-              return this.transformObject(value, keyOrIndex);
-            }
-            if (this.isArray(value)) {
-              return this.transformArray(value, keyOrIndex);
-            }
-            if (this.isValue(value)) {
-              return this.transformValue(value, keyOrIndex);
-            }
-          }) ;
+      generateChildrenFromCollection: function(collection) {
+        return Object.keys(collection).map(keyOrIndex => {
+          let value = collection[keyOrIndex]
+          if (this.isObject(value)) {
+            return this.transformObject(value, keyOrIndex);
+          }
+          if (this.isArray(value)) {
+            return this.transformArray(value, keyOrIndex);
+          }
+          if (this.isValue(value)) {
+            return this.transformValue(value, keyOrIndex);
+          }
+        })
       },
 
     	// Transformer for the Array type
@@ -64,11 +62,13 @@
 
       // Helper Methods for value type detection
       isObject: function(value){
-      	return _.isPlainObject(value);
+//      	return _.isPlainObject(value);
+        return typeof value === 'object' && !Array.isArray(value)
       },
 
       isArray: function(value){
-      	return _.isArray(value);
+//      	return _.isArray(value);
+        return Array.isArray(value)
       },
 
       isValue: function(value){
@@ -76,14 +76,42 @@
       },
 
       onChangeData: function(path, value) {
-        let lastKey = _.last(path)
-        path = _.dropRight(_.drop(path))
+        let clone = function (obj) {
+          if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
+            return obj;
 
-        let data = _.cloneDeep(this.data)
+          if (obj instanceof Date)
+            var temp = new obj.constructor(); //or new Date(obj);
+          else
+            var temp = obj.constructor();
+
+          for (var key in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+              obj['isActiveClone'] = null;
+              temp[key] = clone(obj[key]);
+              delete obj['isActiveClone'];
+            }
+          }
+          return temp;
+        }
+//        -----------path of original in onChangeData type: object build.js:19604:7
+//        -----------path of original in onChangeData: ["root","testArray",1]
+        //        let pathKeys = Object.keys[path]
+        let lastKey = path[path.length - 1]
+        path = path.slice(1, path.length - 1)
+        let data = clone(this.data)
         let targetObject = data
-        _.forEach(path, (key) => {
+        path.forEach((key) => {
           targetObject = targetObject[key]
         })
+//        let lastKey = _.last(path)
+//        path = _.dropRight(_.drop(path))
+//
+//        let data = _.cloneDeep(this.data)
+//        let targetObject = data
+//        _.forEach(path, (key) => {
+//          targetObject = targetObject[key]
+//        })
 
         if (targetObject[lastKey] != value) {
           targetObject[lastKey] = value
@@ -93,7 +121,7 @@
     },
     computed: {
       allOptions: function(){
-        return _.extend({}, {
+        return Object.assign({}, {
           rootObjectKey:  "root",
           maxDepth:       4,
           modifiable:     false,
@@ -111,7 +139,7 @@
         }
 
         // If it's an object or an array, transform as an object
-  	    return this.transformObject(this.data, this.allOptions.rootObjectKey, true);
+        return this.transformObject(this.data, this.allOptions.rootObjectKey, true);
       }
     }
   };

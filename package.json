@@ -1,13 +1,13 @@
 {
-  "name": "vue-json-tree-view",
-  "version": "2.1.4",
-  "repository": "arvidkahl/vue-json-tree-view",
-  "homepage": "https://github.com/arvidkahl/vue-json-tree-view",
+  "name": "vueytree",
+  "version": "1.0.1",
+  "repository": "yetaai/vue-json-tree-view",
+  "homepage": "https://github.com/yetaai/vue-json-tree-view",
   "bugs": {
-    "url": "https://github.com/arvidkahl/vue-json-tree-view/issues",
-    "email": "mail@arvidkahl.de"
+    "url": "https://github.com/yetaai/vue-json-tree-view/issues",
+    "email": "dj@bigdecimap.com"
   },
-  "description": "a JSON Tree View Component in Vue.js",
+  "description": "a JSON Tree View Component in Vue.js. Origianlly developed by Arvid Kahl. Modified by yetaai removing lodash dependency",
   "main": "./dist/vue-json-tree-view.min.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --watch --progress --config webpack.dev.config.js --port 5000",
@@ -19,10 +19,9 @@
     "vue-component",
     "vuejs"
   ],
-  "author": "Arvid Kahl <mail@arvidkahl.de>",
+  "author": "yetaai <dj@bigdecimap.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.4",
     "vue": "^2.5.16"
   },
   "devDependencies": {
@@ -51,7 +50,6 @@
     "karma-verbose-reporter": "0.0.3",
     "karma-webpack": "^1.8.0",
     "node-sass": "^3.4.2",
-    "phantomjs": "^2.1.7",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",

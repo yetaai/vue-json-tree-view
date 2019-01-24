@@ -9,8 +9,6 @@
 
 
 <script>
-import _ from 'lodash'
-
 export default {
     name: 'tree-view-item',
     props: ['data', 'modifiable', 'key-string', 'link'],
@@ -27,7 +25,7 @@ export default {
   },
   watch: {
     valueFormed: function (val) {
-      this.$set(this, 'valueString', _.isString(val) ? val.replace(/^["]+|["]+$/g, '') : val)
+      this.$set(this, 'valueString', typeof val === 'string' ? val.replace(/^["]+|["]+$/g, '') : val)
     }
   },
   methods: {
@@ -48,10 +46,10 @@ export default {
 
       switch (dataType) {
         case 'number':
-          if (_.isNaN(_.toNumber(v))) {
+          if (Number.isNaN(Number(v))) {
             throw 'only number'
           }
-          return _.toNumber(v)
+          return Number(v)
         case 'boolean':
           if (v.toLowerCase() === 'true') { return true }
           if (v.toLowerCase() === 'false') { return false }
@@ -62,13 +60,13 @@ export default {
       }
     },
     getValue: function(value){
-      if (_.isNumber(value)) {
+      if (!isNaN(value)) {
         return value
       }
-      if (_.isNull(value)) {
+      if (value === null || value === undefined) {
         return "null"
       }
-      if (_.isString(value)) {
+      if (typeof value === 'string') {
         if (this.link && !this.modifiable) {
             return "\""+this.linkify(value)+"\"";
         }
@@ -89,19 +87,19 @@ export default {
         return replacedText;
     },
     getValueType: function(value, prefix="tree-view-item-value-"){
-      if (_.isNumber(value)) {
+      if (!isNaN(value)) {
         return prefix + "number"
       }
-      if (_.isFunction(value)) {
+      if (typeof value === 'function') {
         return prefix + "function"
       }
-      if (_.isBoolean(value)) {
+      if (typeof value === 'boolean') {
         return prefix + "boolean"
       }
-      if (_.isNull(value)) {
+      if (value === null || value === undefined) {
         return prefix + "null"
       }
-      if (_.isString(value)) {
+      if (typeof value === "string") {
         return prefix + "string";
       }
       return prefix + "unknown";

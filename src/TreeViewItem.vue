@@ -53,7 +53,7 @@
       	return value.type === 'value';
       },
       getKey: function(value){
-      	if (_.isInteger(value.key)) {
+      	if (Number.isInteger(value.key)) {
         	return value.key+":";
         } else {
   	      return "\""+ value.key + "\":";
@@ -63,7 +63,8 @@
       	return value.isRoot;
       },
       onChangeData: function(path, value) {
-        path = _.concat(this.data.key, path)
+        let aa = Array.isArray(this.data.key) ? this.data.key : [this.data.key]
+        path = aa.concat(path)
         this.$emit('change-data', path, value)
       }
     }
