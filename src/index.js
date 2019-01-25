@@ -7,8 +7,13 @@ import TreeView from './TreeView.vue';
 //     Vue.component("tree-view-item", TreeViewItem);
 //     Vue.component("tree-view", TreeView);
 // };
-export default {
-  TreeView,
-  TreeViewItem,
-  TreeViewItemValue
+TreeView.install = function (Vue) {
+  Vue.component('TreeView', TreeView)
 }
+TreeViewItem.install = function (Vue) {
+  Vue.component('TreeViewItem', TreeViewItem)
+}
+TreeViewItemValue.install = function (Vue) {
+  Vue.component('TreeViewItemValue', TreeViewItemValue)
+}
+export default {TreeView, TreeViewItem, TreeViewItemValue}
