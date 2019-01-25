@@ -1,6 +1,8 @@
 <template>
   <div class="tree-view-wrapper">
-    <tree-view-item class="tree-view-item-root" :data="parsedData" :max-depth="allOptions.maxDepth" :current-depth="0" :modifiable="allOptions.modifiable" :link="allOptions.link" @change-data="onChangeData"></tree-view-item>
+    <tree-view-item class="tree-view-item-root" :data="parsedData" :max-depth="allOptions.maxDepth"
+                    :current-depth="0" :modifiable="allOptions.modifiable" :link="allOptions.link"
+                    @change-data="onChangeData" @item-click="onItemClick"></tree-view-item>
   </div>
 </template>
 
@@ -75,6 +77,12 @@
       	return !this.isObject(value) && !this.isArray(value);
       },
 
+      onItemClick (keyOfItem) {
+        let vm = this
+        if (typeof vm.allOptions.onItemClick == 'function') {
+          vm.allOptions.onItemClick(keyOfItem)
+        }
+      },
       onChangeData: function(path, value) {
         let clone = function (obj) {
           if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
@@ -94,9 +102,6 @@
           }
           return temp;
         }
-//        -----------path of original in onChangeData type: object build.js:19604:7
-//        -----------path of original in onChangeData: ["root","testArray",1]
-        //        let pathKeys = Object.keys[path]
         let lastKey = path[path.length - 1]
         path = path.slice(1, path.length - 1)
         let data = clone(this.data)
@@ -104,15 +109,6 @@
         path.forEach((key) => {
           targetObject = targetObject[key]
         })
-//        let lastKey = _.last(path)
-//        path = _.dropRight(_.drop(path))
-//
-//        let data = _.cloneDeep(this.data)
-//        let targetObject = data
-//        _.forEach(path, (key) => {
-//          targetObject = targetObject[key]
-//        })
-
         if (targetObject[lastKey] != value) {
           targetObject[lastKey] = value
           this.$emit('change-data', data)
@@ -125,7 +121,10 @@
           rootObjectKey:  "root",
           maxDepth:       4,
           modifiable:     false,
-          link: false
+          link: false,
+//          onItemClick: function(s) {
+//            console.log('---- from options.onItemClick: ' + s)
+//          }
         }, (this.options || {}) )
       },
     	parsedData: function(){
