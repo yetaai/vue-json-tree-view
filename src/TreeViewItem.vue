@@ -20,7 +20,7 @@
       <tree-view-item :key="getKey(child)" :max-depth="maxDepth" :current-depth="currentDepth+1" v-show="isOpen()"
                       v-for="child in data.children" :data="child" :modifiable="modifiable" :link="link" @change-data="onChangeData" @item-click="onItemClick"></tree-view-item>
     </div>
-    <tree-view-item-value v-if="isValue(data)" class="tree-view-item-leaf" :key-string="getKey(data)" :data="data.value" :modifiable="modifiable" :link="link" @change-data="onChangeData">
+    <tree-view-item-value v-if="isValue(data)" class="tree-view-item-leaf" :key-string="getKey(data)" :data="data.value" :modifiable="modifiable" :link="link" @click.stop="itemClick" @change-data="onChangeData">
     </tree-view-item-value>
   </div>
 </template>
